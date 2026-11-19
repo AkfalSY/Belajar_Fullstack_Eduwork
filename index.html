@@ -23,131 +23,192 @@
         <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-blue-100">
             <table class="w-full max-w-6xl mx-auto">
                 <tr>
-                    <td class="px-6 py-4">
+                    <td class="px-4 sm:px-6 py-4">
                         <a href="#beranda" class="text-xl font-extrabold text-blue-900">Akfal<span class="text-blue-600">.</span></a>
                     </td>
-                    <td class="px-6 py-4 text-right">
-                        <a href="#beranda" class="ml-1 md:ml-6 text-sm font-medium text-slate-600 hover:text-blue-600">Beranda</a>
-                        <a href="#biodata" class="ml-3 md:ml-6 text-sm font-medium text-slate-600 hover:text-blue-600">Biodata</a>
-                        <a href="#portofolio" class="ml-3 md:ml-6 text-sm font-medium text-slate-600 hover:text-blue-600">Portofolio</a>
+                    <td class="px-4 sm:px-6 py-4 text-right whitespace-nowrap">
+                        <a href="#beranda" class="ml-2 sm:ml-6 text-xs sm:text-sm font-medium text-slate-600 hover:text-blue-600">Beranda</a>
+                        <a href="#biodata" class="ml-2 sm:ml-6 text-xs sm:text-sm font-medium text-slate-600 hover:text-blue-600">Biodata</a>
+                        <a href="#portofolio" class="ml-2 sm:ml-6 text-xs sm:text-sm font-medium text-slate-600 hover:text-blue-600">Portofolio</a>
                     </td>
                 </tr>
             </table>
         </header>
 
-        <!-- SECTION 2: JUDUL (KIRI) + GAMBAR (KANAN) -->
-        <section id="beranda" class="max-w-6xl mx-auto px-6 py-14 md:py-24">
+        <!-- SECTION 2: JUDUL (KIRI) + FOTO (KANAN) -->
+        <section id="beranda" class="max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-24">
             <table class="block md:table w-full">
-                <tr class="block md:table-row">
-                    <td class="block md:table-cell md:w-1/2 align-middle md:pr-12">
-                        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-blue-950">Halo, saya Akfal. Saya membuat website yang rapi dan mudah dipakai.</h1>
-                        <p class="mt-5 text-lg leading-relaxed text-slate-600 max-w-prose">Mahasiswa yang sedang belajar pengembangan web, dari HTML dan Tailwind CSS sampai PHP dan MySQL.</p>
-                        <div class="mt-8">
-                            <a href="#portofolio" class="inline-block rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm hover:bg-blue-700">Lihat portofolio</a>
-                            <a href="#biodata" class="inline-block ml-2 rounded-xl border border-blue-200 px-6 py-3 font-semibold text-blue-700 hover:bg-blue-50">Kenali saya</a>
-                        </div>
-                    </td>
-                    <td class="block md:table-cell md:w-1/2 align-middle mt-12 md:mt-0">
-                        <!-- Ganti SVG ini dengan fotomu: <img src="src/img/fotoku.jpg" alt="Foto Akfal" class="w-full rounded-3xl object-cover"> -->
-                        <svg viewBox="0 0 480 400" class="w-full h-auto" role="img" aria-label="Ilustrasi laptop dengan kode">
-                            <rect width="480" height="400" rx="32" fill="#EFF6FF" />
-                            <circle cx="400" cy="80" r="46" fill="#DBEAFE" />
-                            <circle cx="70" cy="330" r="34" fill="#DBEAFE" />
-                            <rect x="90" y="86" width="300" height="190" rx="14" fill="#0F2A5C" />
-                            <rect x="104" y="100" width="272" height="162" rx="8" fill="#FFFFFF" />
-                            <rect x="120" y="120" width="70" height="10" rx="5" fill="#2563EB" />
-                            <rect x="120" y="144" width="150" height="10" rx="5" fill="#BFDBFE" />
-                            <rect x="136" y="168" width="190" height="10" rx="5" fill="#BFDBFE" />
-                            <rect x="136" y="192" width="120" height="10" rx="5" fill="#93C5FD" />
-                            <rect x="120" y="216" width="90" height="10" rx="5" fill="#2563EB" />
-                            <path d="M60 276h360l-18 28a14 14 0 0 1-12 7H90a14 14 0 0 1-12-7z" fill="#1E40AF" />
-                            <rect x="200" y="280" width="80" height="6" rx="3" fill="#93C5FD" />
-                        </svg>
-                    </td>
-                </tr>
+                <tbody class="block md:table-row-group">
+                    <tr class="block md:table-row">
+                        <td class="block md:table-cell md:w-1/2 align-middle md:pr-12">
+                            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-blue-950">Halo, saya Akfal. Saya membuat website yang rapi dan mudah dipakai.</h1>
+                            <p class="mt-5 text-base sm:text-lg leading-relaxed text-slate-600 max-w-prose">
+                                Mahasiswa yang sedang belajar pengembangan web, dari HTML dan Tailwind CSS sampai PHP dan MySQL.
+                            </p>
+                            <div class="mt-8 flex flex-wrap gap-3">
+                                <a href="#portofolio" class="inline-block rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white shadow-sm hover:bg-blue-700">Lihat portofolio</a>
+                                <a href="#biodata" class="inline-block rounded-xl border border-blue-200 px-6 py-3 font-semibold text-blue-700 hover:bg-blue-50">Kenali saya</a>
+                            </div>
+                        </td>
+                        <td class="block md:table-cell md:w-1/2 align-middle mt-12 md:mt-0">
+                            <div class="relative mx-auto w-full max-w-[300px] sm:max-w-[340px] md:max-w-[380px]">
+                                <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl bg-blue-200"></div>
+                                <img src="myfoto.jpg" alt="Foto Akfal" class="relative aspect-[4/5] w-full rounded-3xl object-cover object-top shadow-lg" />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </section>
 
         <!-- SECTION 3: BIODATA (6 BOX) -->
         <section id="biodata" class="bg-blue-50/60 border-y border-blue-100">
-            <div class="max-w-6xl mx-auto px-6 py-16">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
                 <h2 class="text-3xl font-bold text-blue-950">Biodata</h2>
                 <p class="mt-2 text-slate-600">Ringkasan singkat tentang saya.</p>
 
-                <table class="w-full mt-8 border-separate md:border-spacing-4 md:-mx-4 md:w-[calc(100%+2rem)]">
-                    <tr class="block md:table-row">
-                        <td class="block md:table-cell md:w-1/3 mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
-                            <p class="text-sm text-slate-500">Nama</p>
-                            <p class="mt-1 text-lg font-semibold text-blue-950">Akfal</p>
-                        </td>
-                        <td class="block md:table-cell md:w-1/3 mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
-                            <p class="text-sm text-slate-500">Kampus</p>
-                            <p class="mt-1 text-lg font-semibold text-blue-950">Universitas Pendidikan Indonesia</p>
-                        </td>
-                        <td class="block md:table-cell md:w-1/3 mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
-                            <p class="text-sm text-slate-500">Domisili</p>
-                            <p class="mt-1 text-lg font-semibold text-blue-950">Indonesia</p>
-                        </td>
-                    </tr>
-                    <tr class="block md:table-row">
-                        <td class="block md:table-cell mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
-                            <p class="text-sm text-slate-500">Fokus belajar</p>
-                            <p class="mt-1 text-lg font-semibold text-blue-950">Web development</p>
-                        </td>
-                        <td class="block md:table-cell mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
-                            <p class="text-sm text-slate-500">Keahlian</p>
-                            <p class="mt-1 text-lg font-semibold text-blue-950">HTML, Tailwind CSS, PHP, MySQL</p>
-                        </td>
-                        <td class="block md:table-cell mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
-                            <p class="text-sm text-slate-500">Kontak</p>
-                            <p class="mt-1 text-lg font-semibold text-blue-950">emailkamu@contoh.com</p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </section>
-
-        <!-- SECTION 4: PORTOFOLIO -->
-        <section id="portofolio" class="max-w-6xl mx-auto px-6 py-16">
-            <h2 class="text-3xl font-bold text-blue-950">Portofolio</h2>
-            <p class="mt-2 text-slate-600">Proyek yang pernah saya kerjakan.</p>
-
-            <div class="mt-8 overflow-x-auto rounded-2xl border border-blue-100">
-                <table class="w-full min-w-[640px] text-left">
-                    <thead class="bg-blue-950 text-white">
-                        <tr>
-                            <th class="px-6 py-4 font-semibold">Proyek</th>
-                            <th class="px-6 py-4 font-semibold">Deskripsi</th>
-                            <th class="px-6 py-4 font-semibold">Teknologi</th>
-                            <th class="px-6 py-4 font-semibold">Status</th>
+                <table class="block md:table mt-8 border-separate md:border-spacing-4 md:-mx-4 md:w-[calc(100%+2rem)]">
+                    <tbody class="block md:table-row-group">
+                        <tr class="block md:table-row">
+                            <td class="block md:table-cell md:w-1/3 mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
+                                <p class="text-sm text-slate-500">Nama</p>
+                                <p class="mt-1 text-lg font-semibold text-blue-950">Akfal</p>
+                            </td>
+                            <td class="block md:table-cell md:w-1/3 mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
+                                <p class="text-sm text-slate-500">Kampus</p>
+                                <p class="mt-1 text-lg font-semibold text-blue-950">Universitas Pendidikan Indonesia</p>
+                            </td>
+                            <td class="block md:table-cell md:w-1/3 mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
+                                <p class="text-sm text-slate-500">Domisili</p>
+                                <p class="mt-1 text-lg font-semibold text-blue-950">Indonesia</p>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody class="divide-y divide-blue-100 bg-white">
-                        <tr class="hover:bg-blue-50/60">
-                            <td class="px-6 py-4 font-semibold text-blue-950">CRUD Data Siswa</td>
-                            <td class="px-6 py-4">Tambah, ubah, hapus, dan cari data siswa lengkap dengan foto.</td>
-                            <td class="px-6 py-4">PHP, MySQL, Tailwind CSS</td>
-                            <td class="px-6 py-4"><span class="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800">Dalam pengerjaan</span></td>
-                        </tr>
-                        <tr class="hover:bg-blue-50/60">
-                            <td class="px-6 py-4 font-semibold text-blue-950">Analisis Sentimen IndoBERT</td>
-                            <td class="px-6 py-4">Skripsi tentang opini publik terhadap kebijakan redenominasi.</td>
-                            <td class="px-6 py-4">Python, IndoBERT</td>
-                            <td class="px-6 py-4"><span class="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800">Dalam pengerjaan</span></td>
-                        </tr>
-                        <tr class="hover:bg-blue-50/60">
-                            <td class="px-6 py-4 font-semibold text-blue-950">Latihan Tailwind CSS</td>
-                            <td class="px-6 py-4">Kumpulan latihan tampilan responsif dari kursus.</td>
-                            <td class="px-6 py-4">HTML, Tailwind CSS</td>
-                            <td class="px-6 py-4"><span class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">Selesai</span></td>
+                        <tr class="block md:table-row">
+                            <td class="block md:table-cell mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
+                                <p class="text-sm text-slate-500">Fokus belajar</p>
+                                <p class="mt-1 text-lg font-semibold text-blue-950">Web development</p>
+                            </td>
+                            <td class="block md:table-cell mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
+                                <p class="text-sm text-slate-500">Keahlian</p>
+                                <p class="mt-1 text-lg font-semibold text-blue-950">HTML, Tailwind CSS, PHP, MySQL</p>
+                            </td>
+                            <td class="block md:table-cell mb-4 md:mb-0 rounded-2xl bg-white border border-blue-100 p-6 align-top">
+                                <p class="text-sm text-slate-500">Kontak</p>
+                                <p class="mt-1 text-lg font-semibold text-blue-950 break-words">emailkamu@contoh.com</p>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
+        <!-- SECTION 4: PORTOFOLIO (CARD + FILTER) -->
+        <section id="portofolio" class="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-blue-950">Portofolio</h2>
+                <p class="mt-2 mx-auto max-w-xl text-slate-600">Proyek yang pernah saya kerjakan.</p>
+            </div>
+
+            <!-- Tombol filter -->
+            <div class="mt-8 flex flex-wrap justify-center gap-2">
+                <button type="button" data-filter="all" class="rounded-lg border px-4 py-2 text-sm font-medium bg-blue-600 text-white border-blue-600">Semua</button>
+                <button type="button" data-filter="web" class="rounded-lg border px-4 py-2 text-sm font-medium bg-white text-slate-600 border-slate-200 hover:bg-blue-50">Web</button>
+                <button type="button" data-filter="ai" class="rounded-lg border px-4 py-2 text-sm font-medium bg-white text-slate-600 border-slate-200 hover:bg-blue-50">Data &amp; AI</button>
+            </div>
+
+            <!-- Daftar card -->
+            <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Card 1 -->
+                <article data-category="web">
+                    <div class="relative h-52 overflow-hidden rounded-2xl bg-blue-100 px-6 pt-8">
+                        <span class="absolute right-3 top-3 rounded-full bg-white px-3 py-1 text-xs font-medium text-blue-800">Dalam pengerjaan</span>
+                        <div class="h-full rounded-t-xl bg-white p-4 shadow-sm">
+                            <div class="h-2 w-12 rounded bg-blue-950"></div>
+                            <div class="mt-4 space-y-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="h-4 w-4 rounded-full bg-blue-200"></span><span class="h-2 flex-1 rounded bg-blue-100"></span><span class="h-2 w-8 rounded bg-blue-600"></span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="h-4 w-4 rounded-full bg-blue-200"></span><span class="h-2 flex-1 rounded bg-blue-100"></span><span class="h-2 w-8 rounded bg-blue-600"></span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="h-4 w-4 rounded-full bg-blue-200"></span><span class="h-2 flex-1 rounded bg-blue-100"></span><span class="h-2 w-8 rounded bg-blue-600"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-xs font-semibold text-blue-600">Web</p>
+                    <h3 class="mt-1 text-lg font-bold text-blue-950">CRUD Data Siswa</h3>
+                    <p class="mt-1 text-sm leading-relaxed text-slate-600">Tambah, ubah, hapus, dan cari data siswa lengkap dengan foto.</p>
+                    <p class="mt-2 text-sm text-slate-500">PHP, MySQL, Tailwind CSS</p>
+                </article>
+
+                <!-- Card 2 -->
+                <article data-category="ai">
+                    <div class="relative h-52 overflow-hidden rounded-2xl bg-sky-100 px-6 pt-8">
+                        <span class="absolute right-3 top-3 rounded-full bg-white px-3 py-1 text-xs font-medium text-blue-800">Dalam pengerjaan</span>
+                        <div class="flex h-full items-end gap-3 rounded-t-xl bg-white p-4 shadow-sm">
+                            <span class="h-16 flex-1 rounded-t bg-blue-600"></span>
+                            <span class="h-24 flex-1 rounded-t bg-blue-400"></span>
+                            <span class="h-10 flex-1 rounded-t bg-blue-200"></span>
+                            <span class="h-20 flex-1 rounded-t bg-blue-500"></span>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-xs font-semibold text-blue-600">Data &amp; AI</p>
+                    <h3 class="mt-1 text-lg font-bold text-blue-950">Analisis Sentimen IndoBERT</h3>
+                    <p class="mt-1 text-sm leading-relaxed text-slate-600">Skripsi tentang opini publik terhadap kebijakan redenominasi.</p>
+                    <p class="mt-2 text-sm text-slate-500">Python, IndoBERT</p>
+                </article>
+
+                <!-- Card 3 -->
+                <article data-category="web">
+                    <div class="relative h-52 overflow-hidden rounded-2xl bg-indigo-100 px-6 pt-8">
+                        <span class="absolute right-3 top-3 rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800">Selesai</span>
+                        <div class="h-full rounded-t-xl bg-white p-4 shadow-sm">
+                            <div class="h-3 w-1/2 rounded bg-blue-600"></div>
+                            <div class="mt-4 grid grid-cols-3 gap-2">
+                                <span class="h-10 rounded bg-blue-100"></span>
+                                <span class="h-10 rounded bg-blue-200"></span>
+                                <span class="h-10 rounded bg-blue-100"></span>
+                                <span class="h-10 rounded bg-blue-200"></span>
+                                <span class="h-10 rounded bg-blue-100"></span>
+                                <span class="h-10 rounded bg-blue-200"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-xs font-semibold text-blue-600">Web</p>
+                    <h3 class="mt-1 text-lg font-bold text-blue-950">Latihan Tailwind CSS</h3>
+                    <p class="mt-1 text-sm leading-relaxed text-slate-600">Kumpulan latihan tampilan responsif dari kursus.</p>
+                    <p class="mt-2 text-sm text-slate-500">HTML, Tailwind CSS</p>
+                </article>
+            </div>
+        </section>
+
         <footer class="border-t border-blue-100">
-            <p class="max-w-6xl mx-auto px-6 py-6 text-sm text-slate-500">&copy; 2026 Akfal</p>
+            <p class="max-w-6xl mx-auto px-4 sm:px-6 py-6 text-sm text-slate-500">&copy; 2026 Akfal</p>
         </footer>
+
+        <script>
+            const buttons = document.querySelectorAll("[data-filter]");
+            const cards = document.querySelectorAll("article[data-category]");
+            const ACTIVE = ["bg-blue-600", "text-white", "border-blue-600"];
+            const IDLE = ["bg-white", "text-slate-600", "border-slate-200", "hover:bg-blue-50"];
+
+            buttons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const filter = btn.dataset.filter;
+
+                    buttons.forEach((b) => {
+                        const on = b === btn;
+                        ACTIVE.forEach((c) => b.classList.toggle(c, on));
+                        IDLE.forEach((c) => b.classList.toggle(c, !on));
+                    });
+
+                    cards.forEach((card) => {
+                        card.classList.toggle("hidden", filter !== "all" && card.dataset.category !== filter);
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
