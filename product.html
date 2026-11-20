@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="filter">
+            <button data-kategori="semua">Semua</button>
+            <button data-kategori="buku">Buku</button>
+            <button data-kategori="alat tulis">Alat Tulis</button>
+            <button data-kategori="tas">Tas</button>
+        </div>
+
+        <div id="daftarProduk"></div>
+
+        <script>
+            const products = [
+                { nama: "Buku Tulis", harga: 15000, kategori: "alat tulis" },
+                { nama: "Pulpen", harga: 5000, kategori: "alat tulis" },
+                { nama: "Novel Laskar", harga: 85000, kategori: "buku" },
+                { nama: "Kamus Inggris", harga: 150000, kategori: "buku" },
+                { nama: "Tas Ransel", harga: 250000, kategori: "tas" },
+            ];
+
+            const daftar = document.getElementById("daftarProduk");
+
+            function tampilkan(list) {
+                daftar.innerHTML = "";
+                list.forEach((p) => {
+                    daftar.innerHTML += `
+                <div>
+                    <h3>${p.nama}</h3>
+                    <p>Rp ${p.harga.toLocaleString("id-ID")}</p>
+                    <small>${p.kategori}</small>
+                </div>`;
+                });
+            }
+
+            document.querySelectorAll("#filter button").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const kategori = btn.dataset.kategori;
+                    const hasil = kategori === "semua" ? products : products.filter((p) => p.kategori === kategori);
+                    tampilkan(hasil);
+                });
+            });
+
+            tampilkan(products);
+        </script>
+    </body>
+</html>
