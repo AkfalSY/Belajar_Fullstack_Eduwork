@@ -18,7 +18,6 @@
             modal.classList.add("flex");
             modal.setAttribute("aria-hidden", "false");
             document.body.classList.add("overflow-hidden");
-            document.getElementById("namaProduct").focus();
         }
 
         function closeModal() {
@@ -39,3 +38,16 @@
         document.addEventListener("keydown", (e) => {
             if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
         });
+
+document.querySelectorAll("#editData").forEach(btn => {
+    btn.addEventListener('click', () => {
+        openModal();
+        document.getElementById('aksi').value = "edit";
+        document.getElementById('idProduct').value = btn.dataset.id;
+        document.getElementById('namaProduct').value = btn.dataset.nama;
+        document.getElementById('hargaProduct').value = btn.dataset.harga;
+        document.getElementById('stockProduct').value = btn.dataset.stock;
+        document.getElementById('deskripsi').value = btn.dataset.deskripsi;
+
+})
+});
