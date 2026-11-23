@@ -55,7 +55,16 @@
     </main>
 
     <x-footer></x-footer>
+
     @stack('scripts')
+    <script>
+        const btn = document.getElementById('menuBtn');
+        const menu = document.getElementById('mobileMenu');
+        btn.addEventListener('click', () => {
+            const open = menu.classList.toggle('hidden') === false;
+            btn.setAttribute('aria-expanded', open);
+        });
+    </script>
 </body>
 
 </html>

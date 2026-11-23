@@ -26,7 +26,7 @@ $ship = $items > 0 ? $shipping : 0;
 @section('title', 'cart - eccomerce jingga')
 @section('content')
 
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+    <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         <!-- Breadcrumb -->
         <nav class="text-xs text-neutral-500" aria-label="Breadcrumb">
             <a href="index" class="hover:text-ink">Beranda</a> <span class="mx-1">/</span> <span
@@ -206,7 +206,7 @@ $ship = $items > 0 ? $shipping : 0;
             </aside>
         </div>
         <?php endif; ?>
-    </div>
+    </section>
 
     @push('scripts')
         <script>

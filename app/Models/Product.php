@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CategoryProduct;
 
 class Product extends Model
 {
-    //
+    public function category(){
+        return $this->belongsTo(CategoryProduct::class);
+    }
 }

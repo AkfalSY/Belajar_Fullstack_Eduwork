@@ -1,20 +1,4 @@
 <?php
-/* ------------------------------------------------------------------
-   DATA DUMMY — nanti ganti dengan hasil query database (PDO/MySQLi).
-   Struktur field tiap produk: id, name, category, price, old_price,
-   rating, sold, image (kosong = tampil placeholder), badge
-------------------------------------------------------------------- */
-$products = [
-    ['id' => 1, 'name' => 'Headphone Nirkabel ANC Pro', 'category' => 'Audio', 'price' => 899000, 'old_price' => 1299000, 'rating' => 4.8, 'sold' => 1240, 'image' => '', 'badge' => 'Terlaris'],
-    ['id' => 2, 'name' => 'Smartwatch Fit Series 5', 'category' => 'Wearable', 'price' => 1149000, 'old_price' => 1499000, 'rating' => 4.7, 'sold' => 860, 'image' => '', 'badge' => 'Diskon 23%'],
-    ['id' => 3, 'name' => 'Keyboard Mekanikal 60% RGB', 'category' => 'Gaming', 'price' => 549000, 'old_price' => 0, 'rating' => 4.9, 'sold' => 2310, 'image' => '', 'badge' => ''],
-    ['id' => 4, 'name' => 'Mouse Gaming Ringan 59g', 'category' => 'Gaming', 'price' => 329000, 'old_price' => 449000, 'rating' => 4.6, 'sold' => 1720, 'image' => '', 'badge' => 'Diskon 27%'],
-    ['id' => 5, 'name' => 'Speaker Bluetooth Portabel', 'category' => 'Audio', 'price' => 459000, 'old_price' => 0, 'rating' => 4.5, 'sold' => 640, 'image' => '', 'badge' => 'Baru'],
-    ['id' => 6, 'name' => 'Tas Ransel Laptop 15 inci', 'category' => 'Fashion', 'price' => 279000, 'old_price' => 359000, 'rating' => 4.8, 'sold' => 3050, 'image' => '', 'badge' => ''],
-    ['id' => 7, 'name' => 'Earbuds TWS Mini', 'category' => 'Audio', 'price' => 249000, 'old_price' => 399000, 'rating' => 4.4, 'sold' => 5120, 'image' => '', 'badge' => 'Diskon 38%'],
-    ['id' => 8, 'name' => 'Power Bank 20.000 mAh', 'category' => 'Aksesori', 'price' => 319000, 'old_price' => 0, 'rating' => 4.7, 'sold' => 980, 'image' => '', 'badge' => ''],
-];
-
 $categories = ['Elektronik', 'Gaming', 'Audio', 'Fashion', 'Rumah', 'Kecantikan', 'Olahraga', 'Aksesori'];
 
 function rupiah($n)
@@ -122,71 +106,58 @@ function rupiah($n)
         </div>
 
         <div class="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
-            <?php foreach ($products as $p): ?>
-            <article class="group">
-                <a href="product.php?id=<?= (int) $p['id'] ?>"
-                    class="relative block aspect-square overflow-hidden rounded-2xl bg-neutral-100">
-                    <?php if (!empty($p['image'])): ?>
-                    <img src="<?= htmlspecialchars($p['image']) ?>" alt="<?= htmlspecialchars($p['name']) ?>" loading="lazy"
-                        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-                    <?php else: ?>
-                    <div class="grid h-full w-full place-items-center text-neutral-300">
-                        <svg class="h-14 w-14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2">
-                            <rect x="3" y="4" width="18" height="16" rx="2" />
-                            <circle cx="9" cy="10" r="1.6" />
-                            <path d="m21 16-5-5-8 8" />
-                        </svg>
-                    </div>
-                    <?php endif; ?>
-
-                    <?php if (!empty($p['badge'])): ?>
-                    <span
-                        class="absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-semibold
-                  <?= str_starts_with($p['badge'], 'Diskon') ? 'bg-brand text-white' : 'bg-ink text-white' ?>">
-                        <?= htmlspecialchars($p['badge']) ?>
-                    </span>
-                    <?php endif; ?>
-                </a>
-
-                <button type="button" aria-label="Simpan ke wishlist" class="sr-only">Wishlist</button>
-
-                <div class="mt-3">
-                    <p class="text-xs text-neutral-500"><?= htmlspecialchars($p['category']) ?></p>
-                    <h3 class="mt-0.5 line-clamp-2 min-h-[2.5rem] text-sm font-semibold leading-snug">
-                        <a href="product.php?id=<?= (int) $p['id'] ?>"
-                            class="hover:text-brand"><?= htmlspecialchars($p['name']) ?></a>
-                    </h3>
-
-                    <div class="mt-2 flex items-center gap-1.5 text-xs text-neutral-500">
-                        <svg class="h-3.5 w-3.5 text-brand" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.8 4.8 17.6l1-5.8L1.5 7.7l5.9-.9L10 1.5z" />
-                        </svg>
-                        <span class="font-semibold text-ink"><?= number_format($p['rating'], 1) ?></span>
-                        <span>· <?= number_format($p['sold'], 0, ',', '.') ?> terjual</span>
-                    </div>
-
-                    <div class="mt-2 flex items-end justify-between gap-2">
-                        <div>
-                            <p class="text-base font-extrabold"><?= rupiah($p['price']) ?></p>
-                            <?php if ($p['old_price'] > 0): ?>
-                            <p class="text-xs text-neutral-400 line-through"><?= rupiah($p['old_price']) ?></p>
-                            <?php endif; ?>
-                        </div>
-                        <form action="cart_add.php" method="post">
-                            <input type="hidden" name="id" value="<?= (int) $p['id'] ?>">
-                            <button
-                                class="grid h-10 w-10 place-items-center rounded-full bg-ink text-white transition-colors hover:bg-brand"
-                                aria-label="Tambah ke keranjang">
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M12 5v14M5 12h14" />
+            @foreach ($products as $p)
+                <article class="group">
+                    <a href="product.php?id={{ $p->id }}"
+                        class="relative block aspect-square overflow-hidden rounded-2xl bg-neutral-100">
+                        @if (!empty($p->image))
+                            <img src="{{ $p->image }}" alt="{{ $p->name }}" loading="lazy"
+                                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        @else
+                            <div class="grid h-full w-full place-items-center text-neutral-300">
+                                <svg class="h-14 w-14" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                    stroke-width="1.2">
+                                    <rect x="3" y="4" width="18" height="16" rx="2" />
+                                    <circle cx="9" cy="10" r="1.6" />
+                                    <path d="m21 16-5-5-8 8" />
                                 </svg>
-                            </button>
-                        </form>
+                            </div>
+                        @endif
+                    </a>
+
+                    <button type="button" aria-label="Simpan ke wishlist" class="sr-only">Wishlist</button>
+
+                    <div class="mt-3">
+                        <div class="mt-2 flex flex-col">
+                            <h3 class="mt-0.5 text-lg font-semibold leading-snug">
+                                <a href="product.php?id={{ $p->id }}"
+                                    class="hover:text-brand">{{ htmlspecialchars($p->name) }}</a>
+                            </h3>
+                            <p class="text-sm text-gray-500">{{ $p->description }}</p>
+                        </div>
+
+                        <div class="mt-2 flex items-end justify-between gap-2">
+                            <div>
+                                <p class="text-base font-extrabold">{{ rupiah($p->price) }}</p>
+                            </div>
+                            <form action="cart_add.php" method="post">
+                                <input type="hidden" name="id" value="{{ (int) $p->id }}">
+                                <button
+                                    class="grid h-10 w-10 place-items-center rounded-full bg-ink text-white transition-colors hover:bg-brand"
+                                    aria-label="Tambah ke keranjang">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M12 5v14M5 12h14" />
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </article>
-            <?php endforeach; ?>
+                </article>
+            @endforeach
+        </div>
+        <div class="mt-8">
+            {{ $products->links() }}
         </div>
     </section>
 
@@ -206,15 +177,3 @@ function rupiah($n)
         </div>
     </section>
 @endsection
-
-<script>
-    const btn = document.getElementById('menuBtn');
-    const menu = document.getElementById('mobileMenu');
-    btn.addEventListener('click', () => {
-        const open = menu.classList.toggle('hidden') === false;
-        btn.setAttribute('aria-expanded', open);
-    });
-</script>
-</body>
-
-</html>
