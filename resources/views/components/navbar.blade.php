@@ -31,8 +31,21 @@
                 </form>
 
                 <div class="ml-auto flex items-center gap-1 sm:gap-2">
-                    <a href="login.php"
-                        class="hidden sm:inline-flex rounded-full px-4 py-2 text-sm font-semibold hover:bg-neutral-100">Masuk</a>
+                    @if (Route::has('login'))
+                        <nav class="flex items-center justify-end gap-4">
+                            @auth
+                                <a href="{{ route('dashboard') }}"
+                                    class="hidden sm:inline-flex rounded-full px-4 py-2 text-sm font-semibold hover:bg-neutral-100">Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}"
+                                    class="hidden sm:inline-flex rounded-full px-4 py-2 text-sm font-semibold hover:bg-neutral-100">Masuk</a>
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}"
+                                        class="hidden sm:inline-flex rounded-full px-4 py-2 text-sm font-semibold hover:bg-neutral-100">Daftar</a>
+                                @endif
+                            @endauth
+                        </nav>
+                    @endif
                     <a href="cart"
                         class="relative grid h-10 w-10 place-items-center rounded-full hover:bg-neutral-100"
                         aria-label="Keranjang">
@@ -66,7 +79,18 @@
                 <a href="#kategori" class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Kategori</a>
                 <a href="#produk" class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Produk</a>
                 <a href="#promo" class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Promo</a>
-                <a href="login.php" class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Masuk</a>
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{ route('dashboard') }}"
+                            class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Masuk</a>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}"
+                                class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Daftar</a>
+                        @endif
+                    @endauth
+                @endif
             </div>
         </div>
     </header>
