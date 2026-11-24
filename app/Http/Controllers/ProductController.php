@@ -10,9 +10,15 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard.products.index');
+         $products = Product::with('category')
+        ->when($request->q, fn ($query, $search) => $query->where('name', 'like', "%{$search}%"))
+        ->orderBy('id')
+        ->paginate(10)
+        ->withQueryString();
+
+    return view('products.index', compact('products'));
     }
 
     /**

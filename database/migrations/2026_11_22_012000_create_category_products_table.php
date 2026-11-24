@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('category_products', function (Blueprint $table) {
             $table->id();
-            $table->String("name");
+            $table->String('name');
+            $table->integer('total')->default(0);
             $table->timestamps();
         });
     }

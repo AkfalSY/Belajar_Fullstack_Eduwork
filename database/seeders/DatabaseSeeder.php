@@ -15,11 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            CategoryProductSeeder::class, // induk dulu
+            ProductSeeder::class,         // baru anak (punya foreign key)
+            ContohSeeder::class,
+        ]);
 
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'test@gmail.com',
+            'password' => 'test123',
         ]);
     }
 }
