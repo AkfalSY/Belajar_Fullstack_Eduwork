@@ -18,12 +18,7 @@ class CategoryController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('category.index', [
-            'categories' => $categories,
-            'totalCategories' => CategoryProduct::count(),
-            'totalProducts' => Product::count(),
-            'emptyCategories' => CategoryProduct::doesntHave('products')->count(),
-        ]);
+        return view('category.index', compact('categories'));
     }
 
     public function store(Request $request)

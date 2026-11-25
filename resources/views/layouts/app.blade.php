@@ -21,7 +21,7 @@
         $menus = [
             [
                 'label' => 'Dashboard',
-                'href' => route('dashboard'),
+                'href' => route('dashboard.index'),
                 'active' => request()->routeIs('dashboard'),
                 'icon' =>
                     'M4 5a1 1 0 0 1 1-1h5v7H4V5Zm10-1h5a1 1 0 0 1 1 1v3h-6V4ZM4 13h6v7H5a1 1 0 0 1-1-1v-6Zm10-3h6v9a1 1 0 0 1-1 1h-5v-10Z',
@@ -34,7 +34,7 @@
             ],
             [
                 'label' => 'Kategori Product',
-                'href' => route('category-products.index'),
+                'href' => route('category.index'),
                 'active' => request()->routeIs('category-products.*'),
                 'icon' => 'M3 12V4h8l10 10-8 8L3 12Zm5-5h.01',
             ],
@@ -51,7 +51,7 @@
             class="fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-neutral-200 bg-white transition-transform duration-300 lg:translate-x-0"
             :class="sidebar ? 'translate-x-0' : '-translate-x-full'">
 
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-x-2 px-6 py-6">
+            <a href="{{ route('dashboard.index') }}" class="flex items-center gap-x-2 px-6 py-6">
                 <span
                     class="grid size-9 place-items-center rounded-xl bg-[#EA6A2E] text-lg font-extrabold text-white">J</span>
                 <span class="text-xl font-extrabold text-neutral-900">Jingga</span>

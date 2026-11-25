@@ -9,23 +9,6 @@
                 {{ session('success') }}
             </div>
         @endif
-
-        {{-- kartu statistik --}}
-        <div class="grid gap-4 sm:grid-cols-3">
-            <div class="rounded-2xl border border-neutral-200 bg-white p-5">
-                <p class="text-sm text-neutral-500">Total Kategori</p>
-                <p class="mt-1 text-3xl font-extrabold text-neutral-900">{{ $totalCategories }}</p>
-            </div>
-            <div class="rounded-2xl border border-neutral-200 bg-white p-5">
-                <p class="text-sm text-neutral-500">Total Produk</p>
-                <p class="mt-1 text-3xl font-extrabold text-[#EA6A2E]">{{ $totalProducts }}</p>
-            </div>
-            <div class="rounded-2xl border border-neutral-200 bg-white p-5">
-                <p class="text-sm text-neutral-500">Kategori Kosong</p>
-                <p class="mt-1 text-3xl font-extrabold text-neutral-900">{{ $emptyCategories }}</p>
-            </div>
-        </div>
-
         {{-- tabel --}}
         <div class="rounded-2xl border border-neutral-200 bg-white">
 
@@ -134,7 +117,7 @@
 
         {{-- ====== MODAL TAMBAH ====== --}}
         <x-modal name="create-category" :show="$errors->createCategory->isNotEmpty()" maxWidth="md" focusable>
-            <form method="POST" action="{{ route('category-products.store') }}" class="p-6">
+            <form method="POST" action="{{ route('category.store') }}" class="p-6">
                 @csrf
                 <h2 class="text-xl font-extrabold text-neutral-900">Tambah Kategori</h2>
                 <p class="mt-1 text-sm text-neutral-500">Masukkan nama kategori baru.</p>
