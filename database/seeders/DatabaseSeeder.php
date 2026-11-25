@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,12 +18,7 @@ class DatabaseSeeder extends Seeder
             CategoryProductSeeder::class, // induk dulu
             ProductSeeder::class,         // baru anak (punya foreign key)
             ContohSeeder::class,
-        ]);
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@gmail.com',
-            'password' => 'test123',
+            UserSeeder::class,
         ]);
     }
 }

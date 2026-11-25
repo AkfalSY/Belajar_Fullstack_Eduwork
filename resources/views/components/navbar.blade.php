@@ -34,7 +34,7 @@
                     @if (Route::has('login'))
                         <nav class="flex items-center justify-end gap-4">
                             @auth
-                                <a href="{{ route('dashboard') }}"
+                                <a href="{{ route('dashboard.index') }}"
                                     class="hidden sm:inline-flex rounded-full px-4 py-2 text-sm font-semibold hover:bg-neutral-100">Dashboard</a>
                             @else
                                 <a href="{{ route('login') }}"
@@ -81,7 +81,7 @@
                 <a href="#promo" class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Promo</a>
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ route('dashboard') }}"
+                        <a href="{{ route('dashboard.index') }}"
                             class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Dashboard</a>
                     @else
                         <a href="{{ route('login') }}" class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Masuk</a>

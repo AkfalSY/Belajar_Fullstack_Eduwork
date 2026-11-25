@@ -18,7 +18,7 @@
                     @if (request('q'))
                         <p class="text-sm text-neutral-500">
                             Hasil pencarian "{{ request('q') }}" ·
-                            <a href="{{ route('categories.index') }}"
+                            <a href="{{ route('category.index') }}"
                                 class="font-semibold text-[#EA6A2E] hover:underline">Reset</a>
                         </p>
                     @endif

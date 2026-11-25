@@ -22,7 +22,7 @@
             [
                 'label' => 'Dashboard',
                 'href' => route('dashboard.index'),
-                'active' => request()->routeIs('dashboard'),
+                'active' => request()->routeIs('dashboard.*'),
                 'icon' =>
                     'M4 5a1 1 0 0 1 1-1h5v7H4V5Zm10-1h5a1 1 0 0 1 1 1v3h-6V4ZM4 13h6v7H5a1 1 0 0 1-1-1v-6Zm10-3h6v9a1 1 0 0 1-1 1h-5v-10Z',
             ],
@@ -35,7 +35,7 @@
             [
                 'label' => 'Kategori Product',
                 'href' => route('category.index'),
-                'active' => request()->routeIs('category-products.*'),
+                'active' => request()->routeIs('category.*'),
                 'icon' => 'M3 12V4h8l10 10-8 8L3 12Zm5-5h.01',
             ],
         ];

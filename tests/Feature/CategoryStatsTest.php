@@ -4,7 +4,7 @@ use App\Models\CategoryProduct;
 use App\Models\Product;
 use App\Models\User;
 
-test('dashboard only shows its title while category statistics appear on the category page', function () {
+test('dashboard shows category statistics and category page lists categories', function () {
     $categoryWithProducts = new CategoryProduct;
     $categoryWithProducts->name = 'Accessories';
     $categoryWithProducts->save();
@@ -22,19 +22,16 @@ test('dashboard only shows its title while category statistics appear on the cat
     $product->category_product_id = $categoryWithProducts->id;
     $product->save();
 
-    $user = User::factory()->create();
+    $user = User::factory()->create(['role' => 'admin']);
 
     $this->actingAs($user)
-        ->get(route('dashboard'))
+        ->get(route('dashboard.index'))
         ->assertOk()
         ->assertSee('Dashboard')
-        ->assertDontSee('Total Kategori');
+        ->assertSee('Total Kategori');
 
-    $this->get(route('category-products.index'))
+    $this->get(route('category.index'))
         ->assertOk()
-        ->assertViewHas('totalCategories', 2)
-        ->assertViewHas('totalProducts', 1)
-        ->assertViewHas('emptyCategories', 1)
         ->assertViewHas('categories', function ($categories) {
             return $categories->first()->products_count === 1;
         });
