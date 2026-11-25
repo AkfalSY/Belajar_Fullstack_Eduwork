@@ -34,8 +34,42 @@
                     @if (Route::has('login'))
                         <nav class="flex items-center justify-end gap-4">
                             @auth
-                                <a href="{{ route('dashboard.index') }}"
-                                    class="hidden sm:inline-flex rounded-full px-4 py-2 text-sm font-semibold hover:bg-neutral-100">Dashboard</a>
+                                <x-dropdown align="right" width="48">
+                                    <x-slot name="trigger">
+                                        <button
+                                            class="flex items-center gap-x-3 rounded-xl p-1.5 hover:bg-neutral-100 focus:outline-none">
+                                            <span
+                                                class="grid size-9 place-items-center rounded-full bg-neutral-900 text-sm font-bold text-white">
+                                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                            </span>
+                                            <span class="hidden text-left sm:block">
+                                                <span
+                                                    class="block text-sm font-semibold leading-tight text-neutral-900">{{ Auth::user()->name }}</span>
+                                                <span
+                                                    class="block text-xs text-neutral-500">{{ Auth::user()->email }}</span>
+                                            </span>
+                                            <svg class="hidden size-4 text-neutral-500 sm:block" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="m6 9 6 6 6-6" />
+                                            </svg>
+                                        </button>
+                                    </x-slot>
+
+                                    <x-slot name="content">
+                                        @if (Auth::user()->role === 'admin')
+                                            <x-dropdown-link :href="route('dashboard.index')">Dashboard</x-dropdown-link>
+                                        @endif
+                                        <x-dropdown-link :href="route('profile.edit')">Profile</x-dropdown-link>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <x-dropdown-link :href="route('logout')"
+                                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                                Log Out
+                                            </x-dropdown-link>
+                                        </form>
+                                    </x-slot>
+                                </x-dropdown>
                             @else
                                 <a href="{{ route('login') }}"
                                     class="hidden sm:inline-flex rounded-full px-4 py-2 text-sm font-semibold hover:bg-neutral-100">Masuk</a>
@@ -81,8 +115,17 @@
                 <a href="#promo" class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Promo</a>
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ route('dashboard.index') }}"
-                            class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Dashboard</a>
+                        @if (Auth::user()->role === 'admin')
+                            <a href="{{ route('dashboard.index') }}"
+                                class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Dashboard</a>
+                        @endif
+                        <a href="{{ route('profile.edit') }}"
+                            class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Profile</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"
+                                class="block w-full rounded-lg px-3 py-2 text-left hover:bg-neutral-100">Log Out</button>
+                        </form>
                     @else
                         <a href="{{ route('login') }}" class="block rounded-lg px-3 py-2 hover:bg-neutral-100">Masuk</a>
                         @if (Route::has('register'))

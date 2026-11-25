@@ -41,6 +41,7 @@
             accent-color: #111;
         }
     </style>
+    @vite(['resources/js/app.js'])
 </head>
 
 <body class="bg-white font-sans text-ink antialiased">

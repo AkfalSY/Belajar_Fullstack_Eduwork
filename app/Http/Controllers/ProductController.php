@@ -16,7 +16,7 @@ class ProductController extends Controller
          $products = Product::with('category')
         ->when($request->q, fn ($query, $search) => $query->where('name', 'like', "%{$search}%"))
         ->orderBy('id')
-        ->paginate(10)
+        ->paginate(4)
         ->withQueryString();
 
     return view('products.index', compact('products'));
