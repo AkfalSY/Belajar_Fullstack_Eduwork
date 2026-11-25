@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categoryProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -13,26 +14,39 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-         $products = Product::with('category')
-        ->when($request->q, fn ($query, $search) => $query->where('name', 'like', "%{$search}%"))
-        ->orderBy('id')
-        ->paginate(4)
-        ->withQueryString();
+        $categories = categoryProduct::all();
+        $products = Product::with('category')
+            ->when($request->q, fn ($query, $search) => $query->where('name', 'like', "%{$search}%"))
+            ->orderBy('id')
+            ->paginate(4)
+            ->withQueryString();
 
-    return view('products.index', compact('products'));
+        return view('products.index', compact('products', 'categories'));
     }
 
-   public function store(Request $request)
+    public function store(Request $request)
     {
-        $data = $request->validateWithBag('createProduct', [
+        $request->validate([
             'name' => ['required', 'string', 'max:100', 'unique:products,name'],
             'description' => ['required', 'string', 'max:255'],
-            'image' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'int', 'max:255'],
-            'stock' => ['required', 'int', 'max:255'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'category_product_id' => ['required', 'exists:category_products,id'],
+            'price' => ['required', 'numeric'],
+            'stock' => ['required', 'numeric'],
         ]);
 
-        Product::create($data);
+        $category = categoryProduct::findOrFail($request->category_product_id);
+
+        $product = new Product;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        if ($request->hasFile('image')) {
+            $product->image = $request->file('image')->store('image', 'public');
+        }
+        $product->category()->associate($category);
+        $product->price = $request->price;
+        $product->stock = $request->stock;
+        $product->save();
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan.');
     }

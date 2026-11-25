@@ -22,13 +22,24 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validateWithBag('createCategory', [
-            'name' => ['required', 'string', 'max:100', 'unique:categories,name'],
+        $request->validate([
+            'name' => ['required', 'string', 'max:100'],
         ]);
 
-        CategoryProduct::create($data);
+        $name_check = CategoryProduct::where('name', $request->name)->exists();
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil ditambahkan.');
+        if ($name_check) {
+            return back()
+                ->withInput()
+                ->withErrors(['Category name already exists']);
+        } else {
+            $category = new CategoryProduct;
+            $category->name = $request->name;
+            $category->save();
+
+            return redirect()->route('category.index')->with('success', 'Kategori berhasil ditambahkan.');
+        }
+
     }
 
     public function update(Request $request, CategoryProduct $category)

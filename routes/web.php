@@ -19,6 +19,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('dashboard', DashboardController::class);
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::resource('product', ProductController::class)
+        ->parameters(['product' => 'product'])
+        ->except(['create', 'show', 'edit']);
     Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
     Route::resource('category', CategoryController::class)
         ->parameters(['category' => 'category'])

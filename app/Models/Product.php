@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\CategoryProduct;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
-    public function category(){
-        return $this->belongsTo(CategoryProduct::class);
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(CategoryProduct::class, 'category_product_id');
     }
 
-     public function products(): HasMany
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }

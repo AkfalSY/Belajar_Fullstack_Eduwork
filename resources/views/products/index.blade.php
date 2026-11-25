@@ -4,8 +4,22 @@
     <div class="rounded-2xl border border-neutral-200 bg-white">
 
         <div class="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
+            @if (session('success'))
+                <div class="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div>
-                <h2 class="text-lg font-bold text-neutral-900">Daftar Kategori</h2>
+                <h2 class="text-lg font-bold text-neutral-900">Daftar Product</h2>
                 @if (request('q'))
                     <p class="text-sm text-neutral-500">
                         Hasil pencarian "{{ request('q') }}" ·
@@ -15,13 +29,13 @@
                 @endif
             </div>
 
-            <button type="button" @click="$dispatch('open-modal', 'create-category')"
+            <button type="button" @click="$dispatch('open-modal', 'create-product')"
                 class="inline-flex items-center justify-center gap-x-2 whitespace-nowrap rounded-xl bg-neutral-900 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[#EA6A2E]">
                 <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round">
                     <path d="M12 5v14M5 12h14" />
                 </svg>
-                Tambah Kategori
+                Tambah Product
             </button>
         </div>
 
@@ -96,21 +110,21 @@
         <div class="flex flex-col gap-3 border-t border-neutral-100 p-5 sm:flex-row sm:items-center sm:justify-between">
             <p class="text-sm text-neutral-500">
                 Menampilkan {{ $products->firstItem() ?? 0 }}–{{ $products->lastItem() ?? 0 }} dari
-                {{ $products->total() }} kategori
+                {{ $products->total() }} product
             </p>
             {{ $products->links() }}
         </div>
         {{-- ====== MODAL TAMBAH ====== --}}
-        <x-modal name="create-category" :show="$errors->createCategory->isNotEmpty()" maxWidth="md" focusable>
-            <form method="POST" action="{{ route('category.store') }}" class="p-6">
+        <x-modal name="create-product" :show="$errors->createProduct->isNotEmpty()" maxWidth="md" focusable>
+            <form method="POST" action="{{ route('product.store') }}" class="p-6" enctype="multipart/form-data">
                 @csrf
-                <h2 class="text-xl font-extrabold text-neutral-900">Tambah Kategori</h2>
-                <p class="mt-1 text-sm text-neutral-500">Masukkan nama kategori baru.</p>
+                <h2 class="text-xl font-extrabold text-neutral-900">Tambah Product</h2>
+                <p class="mt-1 text-sm text-neutral-500">Masukkan nama product baru.</p>
 
                 <div class="mt-5">
                     <div class="my-4">
                         <label for="create_name" class="mb-1.5 block text-xs font-semibold text-neutral-700">Nama
-                            kategori</label>
+                            product</label>
                         <input id="create_name" type="text" name="name" value="{{ old('name') }}" required
                             placeholder="Contoh: Audio"
                             class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15" />
@@ -130,6 +144,20 @@
                             class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15" />
                     </div>
                     <div class="my-4">
+                        <label for="category_product_id"
+                            class="mb-1.5 block text-xs font-semibold text-neutral-700">Category</label>
+                        <select id="category_product_id" name="category_product_id" required
+                            class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15">
+                            <option value="">Pilih Kategori</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ old('category_product_id') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="my-4">
                         <label for="create_price"
                             class="mb-1.5 block text-xs font-semibold text-neutral-700">Price</label>
                         <input id="create_price" type="text" name="price" value="{{ old('price') }}" required
@@ -145,7 +173,7 @@
                     </div>
 
                     <div class="mt-6 flex justify-end gap-x-2">
-                        <button type="button" @click="$dispatch('close-modal', 'create-category')"
+                        <button type="button" @click="$dispatch('close-modal', 'create-product  ')"
                             class="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100">Batal</button>
                         <button type="submit"
                             class="rounded-xl bg-[#EA6A2E] px-5 py-3 text-sm font-bold text-white hover:bg-neutral-900">Simpan</button>
