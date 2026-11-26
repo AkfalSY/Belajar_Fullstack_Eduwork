@@ -11,17 +11,10 @@ class DashboardController extends Controller
 {
      public function index(Request $request): View
     {
-        $categories = CategoryProduct::withCount('products')
-            ->when($request->q, fn ($query, $search) => $query->where('name', 'like', "%{$search}%"))
-            ->orderBy('id')
-            ->paginate(10)
-            ->withQueryString();
+        $totalCategories = CategoryProduct::count();
+        $totalProducts = Product::count();
+        $jumlahClickProduct= Product::sum('clicks');
 
-        return view('dashboard.index', [
-            'categories' => $categories,
-            'totalCategories' => CategoryProduct::count(),
-            'totalProducts' => Product::count(),
-            'emptyCategories' => CategoryProduct::doesntHave('products')->count(),
-        ]);
+        return view('dashboard.index', compact('totalCategories', 'totalProducts', 'jumlahClickProduct'));
     }
 }

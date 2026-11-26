@@ -12,8 +12,8 @@
             <p class="mt-1 text-3xl font-extrabold text-[#EA6A2E]">{{ $totalProducts }}</p>
         </div>
         <div class="rounded-2xl border border-neutral-200 bg-white p-5">
-            <p class="text-sm text-neutral-500">Kategori Kosong</p>
-            <p class="mt-1 text-3xl font-extrabold text-neutral-900">{{ $emptyCategories }}</p>
+            <p class="text-sm text-neutral-500">Total Clicks</p>
+            <p class="mt-1 text-3xl font-extrabold text-neutral-900">{{ $jumlahClickProduct }}</p>
         </div>
     </div>
 
