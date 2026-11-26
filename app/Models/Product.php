@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'image',
+        'category_product_id',
+    ];
     public function category(): BelongsTo
     {
         return $this->belongsTo(CategoryProduct::class, 'category_product_id');

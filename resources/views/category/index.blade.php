@@ -93,7 +93,7 @@
                                             Edit
                                         </button>
                                         <button type="button"
-                                            @click="open = false; deleting = { id: {{ $category->id }}, name: @js($category->name) }; $dispatch('open-modal', 'delete-category')"
+                                            @click="open = false; $dispatch('set-category-to-delete', { id: {{ $category->id }}, name: @js($category->name) }); $dispatch('open-modal', 'delete-category')"
                                             class="flex w-full items-center gap-x-2 rounded-lg px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50">
                                             <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -153,7 +153,7 @@
 
         {{-- ====== MODAL EDIT ====== --}}
         <x-modal name="edit-category" maxWidth="md" focusable>
-            <form method="POST" :action="'{{ url('categories') }}/' + editing.id" class="p-6">
+            <form method="POST" :action="'{{ url('category') }}/' + editing.id" class="p-6">
                 @csrf
                 @method('PUT')
                 <h2 class="text-xl font-extrabold text-neutral-900">Edit Kategori</h2>
@@ -178,32 +178,34 @@
 
         {{-- ====== MODAL HAPUS ====== --}}
         <x-modal name="delete-category" maxWidth="md">
-            <form method="POST" :action="'{{ url('categories') }}/' + deleting.id" class="p-6">
-                @csrf
-                @method('DELETE')
+            <div x-data="{ deleting: { id: null, name: '' } }" x-on:set-category-to-delete.window="deleting = $event.detail">
+                <form method="POST" :action="'{{ url('/category') }}/' + deleting.id" class="p-6">
+                    @csrf
+                    @method('DELETE')
 
-                <div class="grid size-12 place-items-center rounded-full bg-red-100 text-red-600">
-                    <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14" />
-                    </svg>
-                </div>
+                    <div class="grid size-12 place-items-center rounded-full bg-red-100 text-red-600">
+                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14" />
+                        </svg>
+                    </div>
 
-                <h2 class="mt-4 text-xl font-extrabold text-neutral-900">Hapus Kategori?</h2>
-                <p class="mt-1 text-sm text-neutral-500">
-                    Kategori <span class="font-bold text-neutral-900" x-text="deleting.name"></span> akan dihapus
-                    permanen.
-                    Produk di dalamnya tidak ikut terhapus, tapi jadi tanpa kategori.
-                </p>
+                    <h2 class="mt-4 text-xl font-extrabold text-neutral-900">Hapus Kategori?</h2>
+                    <p class="mt-1 text-sm text-neutral-500">
+                        Kategori <span class="font-bold text-neutral-900" x-text="deleting.name"></span> akan dihapus
+                        permanen.
+                        Produk di dalamnya tidak ikut terhapus, tapi jadi tanpa kategori.
+                    </p>
 
-                <div class="mt-6 flex justify-end gap-x-2">
-                    <button type="button" @click="$dispatch('close-modal', 'delete-category')"
-                        class="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100">Batal</button>
-                    <button type="submit"
-                        class="rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white hover:bg-red-700">Ya,
-                        Hapus</button>
-                </div>
-            </form>
+                    <div class="mt-6 flex justify-end gap-x-2">
+                        <button type="button" @click="$dispatch('close-modal', 'delete-category')"
+                            class="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100">Batal</button>
+                        <button type="submit"
+                            class="rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white hover:bg-red-700">Ya,
+                            Hapus</button>
+                    </div>
+                </form>
+            </div>
         </x-modal>
     </div>
 </x-app-layout>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoryProduct;
+use App\Models\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -45,18 +46,23 @@ class CategoryController extends Controller
     public function update(Request $request, CategoryProduct $category)
     {
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:100', Rule::unique('categories', 'name')->ignore($category->id)],
+            'name' => ['required', 'string', 'max:100', Rule::unique('category_products', 'name')->ignore($category->id)],
         ]);
 
         $category->update($data);
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil diperbarui.');
+        return redirect()->route('category.index')->with('success', 'Kategori berhasil diperbarui.');
     }
 
-    public function destroy(CategoryProduct $category)
+    public function destroy(string $id)
     {
+        $category = CategoryProduct::findOrFail($id);
+        $product_check = Product::where('category_product_id', $category->id)->exists();
+        if ($product_check) {
+            $products = Product::where('category_product_id', $category->id)->update(['category_product_id' => null]);
+        }
         $category->delete();
 
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil dihapus.');
+        return redirect()->route('category.index')->with('success', 'Kategori berhasil dihapus.');
     }
 }

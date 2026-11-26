@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\categoryProduct;
+use App\Models\CategoryProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -35,7 +35,7 @@ class ProductController extends Controller
             'stock' => ['required', 'numeric'],
         ]);
 
-        $category = categoryProduct::findOrFail($request->category_product_id);
+        $category = CategoryProduct::findOrFail($request->category_product_id);
 
         $product = new Product;
         $product->name = $request->name;
@@ -56,12 +56,23 @@ class ProductController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:100', Rule::unique('products', 'name')->ignore($product->id)],
             'description' => ['required', 'string', 'max:255'],
-            'image' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'int', 'max:255'],
-            'stock' => ['required', 'int', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'category_product_id' => ['required', 'exists:category_products,id'],
+            'price' => ['required', 'numeric'],
+            'stock' => ['required', 'numeric'],
         ]);
 
-        $product->update($data);
+        $product->name = $data['name'];
+        $product->description = $data['description'];
+        $product->category_product_id = $data['category_product_id'];
+        $product->price = $data['price'];
+        $product->stock = $data['stock'];
+
+        if ($request->hasFile('image')) {
+            $product->image = $request->file('image')->store('image', 'public');
+        }
+
+        $product->save();
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
     }

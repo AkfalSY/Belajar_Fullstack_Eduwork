@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-slot name="header">Product</x-slot>
 
-    <div class="rounded-2xl border border-neutral-200 bg-white">
+    <div x-data="{ deleting: { id: null, name: '' } }"
+        class="rounded-2xl border border-neutral-200 bg-white">
 
         <div class="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
             @if (session('success'))
@@ -77,7 +78,7 @@
                                 <div x-show="open" x-cloak x-transition.origin.top.right
                                     class="absolute right-0 z-20 mt-1 w-40 rounded-xl border border-neutral-200 bg-white p-1 shadow-lg">
                                     <button type="button"
-                                        @click="open = false; editing = { id: {{ $product->id }}, name: @js($product->name) }; $dispatch('open-modal', 'edit-category')"
+                                        @click="open = false; $dispatch('open-modal', 'edit-product-{{ $product->id }}')"
                                         class="flex w-full items-center gap-x-2 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100">
                                         <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -86,7 +87,7 @@
                                         Edit
                                     </button>
                                     <button type="button"
-                                        @click="open = false; deleting = { id: {{ $product->id }}, name: @js($product->name) }; $dispatch('open-modal', 'delete-category')"
+                                        @click="open = false; deleting = { id: {{ $product->id }}, name: @js($product->name) }; $dispatch('open-modal', 'delete-product')"
                                         class="flex w-full items-center gap-x-2 rounded-lg px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50">
                                         <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -101,7 +102,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-5 py-12 text-center text-neutral-500">Belum ada kategori.</td>
+                        <td colspan="4" class="px-5 py-12 text-center text-neutral-500">Belum ada Product.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -171,69 +172,119 @@
                             placeholder="Contoh: 10"
                             class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15" />
                     </div>
+                </div>
 
-                    <div class="mt-6 flex justify-end gap-x-2">
-                        <button type="button" @click="$dispatch('close-modal', 'create-product  ')"
-                            class="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100">Batal</button>
-                        <button type="submit"
-                            class="rounded-xl bg-[#EA6A2E] px-5 py-3 text-sm font-bold text-white hover:bg-neutral-900">Simpan</button>
-                    </div>
+                <div class="mt-6 flex justify-end gap-x-2">
+                    <button type="button" @click="$dispatch('close-modal', 'create-product  ')"
+                        class="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100">Batal</button>
+                    <button type="submit"
+                        class="rounded-xl bg-[#EA6A2E] px-5 py-3 text-sm font-bold text-white hover:bg-neutral-900">Simpan</button>
+                </div>
             </form>
         </x-modal>
 
         {{-- ====== MODAL EDIT ====== --}}
-        <x-modal name="edit-category" maxWidth="md" focusable>
-            <form method="POST" :action="'{{ url('categories') }}/' + editing.id" class="p-6">
-                @csrf
-                @method('PUT')
-                <h2 class="text-xl font-extrabold text-neutral-900">Edit Kategori</h2>
-                <p class="mt-1 text-sm text-neutral-500">Ubah nama kategori.</p>
+        @foreach ($products as $product)
+            <x-modal name="edit-product-{{ $product->id }}" maxWidth="md" focusable>
+                <form method="POST" action="{{ route('product.update', $product) }}" class="p-6"
+                    enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <h2 class="text-xl font-extrabold text-neutral-900">Edit Product</h2>
+                    <p class="mt-1 text-sm text-neutral-500">Ubah data product.</p>
 
-                <div class="mt-5">
-                    <label for="edit_name" class="mb-1.5 block text-xs font-semibold text-neutral-700">Nama
-                        kategori</label>
-                    <input id="edit_name" type="text" name="name" x-model="editing.name" required
-                        class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15" />
-                </div>
+                    <div class="my-5">
+                        <label for="edit_name_{{ $product->id }}"
+                            class="mb-1.5 block text-xs font-semibold text-neutral-700">Nama product</label>
+                        <input id="edit_name_{{ $product->id }}" type="text" name="name"
+                            value="{{ $product->name }}" required
+                            class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15" />
+                    </div>
+                    <div class="my-4">
+                        <label for="edit_description_{{ $product->id }}"
+                            class="mb-1.5 block text-xs font-semibold text-neutral-700">Deskripsi</label>
+                        <input id="edit_description_{{ $product->id }}" type="text" name="description"
+                            value="{{ $product->description }}" required
+                            class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15" />
+                    </div>
+                    <div class="my-4">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                            class="mb-2 w-32 rounded-lg">
+                        <label for="edit_image_{{ $product->id }}"
+                            class="mb-1.5 block text-xs font-semibold text-neutral-700">Image</label>
+                        <input id="edit_image_{{ $product->id }}" type="file" name="image"
+                            class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15" />
+                    </div>
+                    <div class="my-4">
+                        <label for="edit_category_product_id_{{ $product->id }}"
+                            class="mb-1.5 block text-xs font-semibold text-neutral-700">Category</label>
+                        <select id="edit_category_product_id_{{ $product->id }}" name="category_product_id"
+                            required
+                            class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15">
+                            <option value="">Pilih Kategori</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ $product->category_product_id == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="my-4">
+                        <label for="edit_price_{{ $product->id }}"
+                            class="mb-1.5 block text-xs font-semibold text-neutral-700">Price</label>
+                        <input id="edit_price_{{ $product->id }}" type="text" name="price"
+                            value="{{ $product->price }}" required placeholder="Contoh: 100000"
+                            class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15" />
+                    </div>
+                    <div class="my-4">
+                        <label for="edit_stock_{{ $product->id }}"
+                            class="mb-1.5 block text-xs font-semibold text-neutral-700">Stock</label>
+                        <input id="edit_stock_{{ $product->id }}" type="text" name="stock"
+                            value="{{ $product->stock }}" required placeholder="Contoh: 10"
+                            class="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm outline-none placeholder:text-neutral-400 focus:border-[#EA6A2E] focus:bg-white focus:ring-4 focus:ring-[#EA6A2E]/15" />
+                    </div>
 
-                <div class="mt-6 flex justify-end gap-x-2">
-                    <button type="button" @click="$dispatch('close-modal', 'edit-category')"
-                        class="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100">Batal</button>
-                    <button type="submit"
-                        class="rounded-xl bg-[#EA6A2E] px-5 py-3 text-sm font-bold text-white hover:bg-neutral-900">Simpan
-                        Perubahan</button>
-                </div>
-            </form>
-        </x-modal>
+                    <div class="mt-6 flex justify-end gap-x-2">
+                        <button type="button"
+                            @click="$dispatch('close-modal', 'edit-product-{{ $product->id }}')"
+                            class="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100">Batal</button>
+                        <button type="submit"
+                            class="rounded-xl bg-[#EA6A2E] px-5 py-3 text-sm font-bold text-white hover:bg-neutral-900">Simpan
+                            Perubahan</button>
+                    </div>
+                </form>
+            </x-modal>
+        @endforeach
 
-        {{-- ====== MODAL HAPUS ====== --}}
-        <x-modal name="delete-category" maxWidth="md">
-            <form method="POST" :action="'{{ url('categories') }}/' + deleting.id" class="p-6">
-                @csrf
-                @method('DELETE')
+    {{-- ====== MODAL HAPUS ====== --}}
+    <x-modal name="delete-product" maxWidth="md">
+        <form method="POST" :action="'{{ url('product') }}/' + deleting.id" class="p-6">
+            @csrf
+            @method('DELETE')
 
-                <div class="grid size-12 place-items-center rounded-full bg-red-100 text-red-600">
-                    <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14" />
-                    </svg>
-                </div>
+            <div class="grid size-12 place-items-center rounded-full bg-red-100 text-red-600">
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14" />
+                </svg>
+            </div>
 
-                <h2 class="mt-4 text-xl font-extrabold text-neutral-900">Hapus Kategori?</h2>
-                <p class="mt-1 text-sm text-neutral-500">
-                    Kategori <span class="font-bold text-neutral-900" x-text="deleting.name"></span> akan dihapus
-                    permanen.
-                    Produk di dalamnya tidak ikut terhapus, tapi jadi tanpa kategori.
-                </p>
+            <h2 class="mt-4 text-xl font-extrabold text-neutral-900">Hapus Kategori?</h2>
+            <p class="mt-1 text-sm text-neutral-500">
+                Kategori <span class="font-bold text-neutral-900" x-text="deleting.name"></span> akan dihapus
+                permanen.
+                Produk di dalamnya tidak ikut terhapus, tapi jadi tanpa kategori.
+            </p>
 
-                <div class="mt-6 flex justify-end gap-x-2">
-                    <button type="button" @click="$dispatch('close-modal', 'delete-category')"
-                        class="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100">Batal</button>
-                    <button type="submit"
-                        class="rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white hover:bg-red-700">Ya,
-                        Hapus</button>
-                </div>
-            </form>
-        </x-modal>
+            <div class="mt-6 flex justify-end gap-x-2">
+                <button type="button" @click="$dispatch('close-modal', 'delete-product')"
+                    class="rounded-xl border border-neutral-200 px-5 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-100">Batal</button>
+                <button type="submit"
+                    class="rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white hover:bg-red-700">Ya,
+                    Hapus</button>
+            </div>
+        </form>
+    </x-modal>
     </div>
 </x-app-layout>
