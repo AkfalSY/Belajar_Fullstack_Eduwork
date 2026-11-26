@@ -43,10 +43,10 @@
             Masuk
         </button>
 
-        <p class="text-center text-sm text-neutral-500">
+        {{-- <p class="text-center text-sm text-neutral-500">
             Belum punya akun?
             <a href="{{ route('register') }}" class="font-semibold text-[#EA6A2E] hover:underline">Daftar</a>
-        </p>
+        </p> --}}
 
         <div class="flex items-center gap-x-3 text-xs text-neutral-400">
             <span class="h-px flex-1 bg-neutral-200"></span> Atau <span class="h-px flex-1 bg-neutral-200"></span>

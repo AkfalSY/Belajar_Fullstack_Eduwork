@@ -142,14 +142,14 @@ function rupiah($n)
                             </div>
                             <form action="cart_add.php" method="post">
                                 <input type="hidden" name="id" value="{{ (int) $p->id }}">
-                                <button
+                                <a href="{{ route('click.product', $p->id) }}"
                                     class="grid h-10 w-10 place-items-center rounded-full bg-ink text-white transition-colors hover:bg-brand"
                                     aria-label="Tambah ke keranjang">
                                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                         stroke-width="2">
                                         <path d="M12 5v14M5 12h14" />
                                     </svg>
-                                </button>
+                                </a>
                             </form>
                         </div>
                     </div>
